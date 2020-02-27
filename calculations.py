@@ -102,14 +102,12 @@ def search_for_boundary_prices(data):
     for line in data:
         if not max_price_item:
             max_price_item = line
-        else:
-            if line[price_index] > max_price_item[price_index]:
+        elif line[price_index] > max_price_item[price_index]:
                 max_price_item = line
 
         if not min_price_item:
             min_price_item = line
-        else:
-            if line[price_index] < min_price_item[price_index]:
+        elif line[price_index] < min_price_item[price_index]:
                 min_price_item = line
 
     min_price_item = (min_price_item[item_id_index], min_price_item[store_id_index], min_price_item[price_index])
