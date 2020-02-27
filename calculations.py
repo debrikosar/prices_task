@@ -33,12 +33,12 @@ def count_unique_shops(data):
 
 def generate_user_statistic(data):
     user_column_index = 3
-    user_s = Counter()
+    user_statistic = Counter()
 
     for line in data:
-        user_s[line[user_column_index]] += 1
+        user_statistic[line[user_column_index]] += 1
 
-    return user_s
+    return user_statistic
 
 
 def find_highest_activity_user(data):
