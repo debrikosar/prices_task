@@ -86,7 +86,7 @@ def generate_average_prices_list(data):
         average_prices_list[line[item_id_index]].append(line[item_price_index])
 
     for item in average_prices_list.items():
-        average_prices_list[item[item_id_index]] = sum([float(price) for price in average_prices_list[item[item_id_index]]]) \
+        average_prices_list[item[item_id_index]] = sum((float(price) for price in average_prices_list[item[item_id_index]])) \
                                        / len(average_prices_list[item[item_id_index]])
 
     return average_prices_list
