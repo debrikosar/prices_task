@@ -82,10 +82,11 @@ def command_line_input():
     parser.add_argument('data_address', action='store')
     result = parser.parse_args()
 
-    if not os.path.isfile(result.data_address):
-        print("Incorrect Data Address")
-    else:
+    try:
         input_file_processing(result.data_address)
+    except OSError:
+        print("Invalid file address")
+        pass
 
     print(time.time() - start_time)
 
