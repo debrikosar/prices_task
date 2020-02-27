@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 def generate_unique_items_list(data):
     items_id_column_index = 0
     items_id_list = []
@@ -30,15 +33,12 @@ def count_unique_shops(data):
 
 def generate_user_statistic(data):
     user_column_index = 3
-    user_statistic = {}
+    user_s = Counter()
 
     for line in data:
-        if not line[user_column_index] in user_statistic.keys():
-            user_statistic[line[user_column_index]] = 1
-        else:
-            user_statistic[line[user_column_index]] += 1
+        user_s[line[user_column_index]] += 1
 
-    return user_statistic
+    return user_s
 
 
 def find_highest_activity_user(data):
