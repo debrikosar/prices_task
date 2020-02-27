@@ -3,11 +3,7 @@ from collections import Counter, defaultdict
 
 def generate_unique_items_list(data):
     items_id_column_index = 0
-    items_id_list = []
-
-    for line in data:
-        if not line[items_id_column_index] in items_id_list:
-            items_id_list.append(line[items_id_column_index])
+    items_id_list = set(line[items_id_column_index] for line in data)
 
     return items_id_list
 
@@ -18,11 +14,7 @@ def count_unique_items(data):
 
 def generate_unique_shops_list(data):
     shop_id_column_index = 1
-    shop_id_list = []
-
-    for line in data:
-        if not line[shop_id_column_index] in shop_id_list:
-            shop_id_list.append(line[shop_id_column_index])
+    shop_id_list = set(line[shop_id_column_index] for line in data)
 
     return shop_id_list
 
@@ -75,15 +67,15 @@ def generate_average_prices_list(data):
     item_id_index = 0
     item_price_index = 2
 
-    apl = defaultdict(list)
+    average_prices_list = defaultdict(list)
 
     for line in data:
-        apl[line[item_id_index]].append(float(line[item_price_index]))
+        average_prices_list[line[item_id_index]].append(float(line[item_price_index]))
 
-    for item_key, item_value in apl.items():
-        apl[item_key] = sum(price for price in item_value) / len(apl[item_key])
+    for item_key, item_value in average_prices_list.items():
+        average_prices_list[item_key] = sum(price for price in item_value) / len(average_prices_list[item_key])
 
-    return apl
+    return average_prices_list
 
 
 def search_for_boundary_prices(data):
