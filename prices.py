@@ -4,13 +4,13 @@ import os
 import time
 import calculations
 
+ITEM_ID_COLUMN_INDEX = 0
+SHOP_ID_COLUMN_INDEX = 1
+PRICE_COLUMN_INDEX = 2
+USER_COLUMN_INDEX = 3
+
 
 def generate_general_statistic(data, filename):
-    item_id_index = 0
-    store_id_index = 1
-    price_index = 2
-
-
     with open('Data_Output/' + filename + '_general_statistic.csv', 'w', newline='') as file:
         prices_stream_writer = csv.writer(file)
 
@@ -21,38 +21,32 @@ def generate_general_statistic(data, filename):
         prices_stream_writer.writerow(["Unique products: ",  calculations.count_unique_items(data)])
         prices_stream_writer.writerow(["Unique shops: ",  calculations.count_unique_shops(data)])
         prices_stream_writer.writerow(["User with highest activity: ",  calculations.find_highest_activity_user(data)])
-        prices_stream_writer.writerow(["The cheapest product: ", min_price_item[item_id_index],
-                                       " with price: ", min_price_item[price_index],
-                                       " from store: ", min_price_item[store_id_index]])
-        prices_stream_writer.writerow(["The most expensive product: ", max_price_item[item_id_index],
-                                       " with price: ", max_price_item[price_index],
-                                       " from store: ", max_price_item[store_id_index]])
+        prices_stream_writer.writerow(["The cheapest product: ", min_price_item[ITEM_ID_COLUMN_INDEX],
+                                       " with price: ", min_price_item[PRICE_COLUMN_INDEX],
+                                       " from store: ", min_price_item[SHOP_ID_COLUMN_INDEX]])
+        prices_stream_writer.writerow(["The most expensive product: ", max_price_item[ITEM_ID_COLUMN_INDEX],
+                                       " with price: ", max_price_item[PRICE_COLUMN_INDEX],
+                                       " from store: ", max_price_item[SHOP_ID_COLUMN_INDEX]])
 
 
 def generate_stores_statistic(data, filename):
-    shop_id_index = 0
-    items_id_index = 1
-
     with open('Data_Output/' + filename + '_stores_statistic.csv', 'w', newline='') as file:
         stores_stream_writer = csv.writer(file)
 
         stores_stream_writer.writerow(["Shop ID", "Unique items ID"])
 
-        for line in  calculations.generate_unique_shop_items_list(data).items():
-            stores_stream_writer.writerow([line[shop_id_index], len(line[items_id_index])])
+        for shop_id, unique_items in  calculations.generate_unique_shop_items_list(data).items():
+            stores_stream_writer.writerow([shop_id, len(unique_items)])
 
 
 def generate_items_statistic(data, filename):
-    item_id_index = 0
-    price_index = 1
-
     with open('Data_Output/' + filename + '_items_statistic.csv', 'w', newline='') as file:
         items_stream_writer = csv.writer(file)
 
         items_stream_writer.writerow(["Item ID", "Item average price"])
 
-        for line in  calculations.generate_average_prices_list(data).items():
-            items_stream_writer.writerow([line[item_id_index], line[price_index]])
+        for item_id, prices in calculations.generate_average_prices_list(data).items():
+            items_stream_writer.writerow([item_id, prices])
 
 
 def data_processing(data, filename):
