@@ -39,14 +39,9 @@ def generate_user_statistic(data):
 
 
 def find_highest_activity_user(data):
-    highest_activity_user = ("None", 0)
     user_statistic = generate_user_statistic(data)
 
-    for user in user_statistic.items():
-        if user[REVIEWS_INDEX] > highest_activity_user[REVIEWS_INDEX]:
-            highest_activity_user = user
-
-    return highest_activity_user[USERNAME_INDEX]
+    return max(user_statistic, key=lambda user: user_statistic[user])
 
 
 def generate_empty_unique_shop_items_list(data):
@@ -54,12 +49,10 @@ def generate_empty_unique_shop_items_list(data):
 
 
 def generate_unique_shop_items_list(data):
-    empty_unique_shop_items = generate_empty_unique_shop_items_list(data)
-    unique_shop_items = empty_unique_shop_items
+    unique_shop_items = defaultdict(list)
 
     for line in data:
-        if not line[ITEM_ID_COLUMN_INDEX] in empty_unique_shop_items[line[SHOP_ID_COLUMN_INDEX]]:
-            unique_shop_items[line[SHOP_ID_COLUMN_INDEX]].append(line[ITEM_ID_COLUMN_INDEX])
+        unique_shop_items[line[SHOP_ID_COLUMN_INDEX]].append(line[ITEM_ID_COLUMN_INDEX])
 
     return unique_shop_items
 
