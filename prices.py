@@ -11,7 +11,8 @@ USER_COLUMN_INDEX = 3
 
 
 def generate_general_statistic(data, filename):
-    with open('Data_Output/' + filename + '_general_statistic.csv', 'w', newline='') as file:
+    path = os.path.join('Data_Output/', filename + '_general_statistic.csv')
+    with open(path, 'w', newline='') as file:
         prices_stream_writer = csv.writer(file)
 
         boundary_prices =  calculations.search_for_boundary_prices(data)
@@ -30,7 +31,8 @@ def generate_general_statistic(data, filename):
 
 
 def generate_stores_statistic(data, filename):
-    with open('Data_Output/' + filename + '_stores_statistic.csv', 'w', newline='') as file:
+    path = os.path.join('Data_Output/', filename + '_stores_statistic.csv')
+    with open(path, 'w', newline='') as file:
         stores_stream_writer = csv.writer(file)
 
         stores_stream_writer.writerow(["Shop ID", "Unique items ID"])
@@ -40,7 +42,8 @@ def generate_stores_statistic(data, filename):
 
 
 def generate_items_statistic(data, filename):
-    with open('Data_Output/' + filename + '_items_statistic.csv', 'w', newline='') as file:
+    path = os.path.join('Data_Output/', filename + '_items_statistic.csv')
+    with open(path, 'w', newline='') as file:
         items_stream_writer = csv.writer(file)
 
         items_stream_writer.writerow(["Item ID", "Item average price"])
